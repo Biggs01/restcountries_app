@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:restcountries_app/pages/countries_list_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -43,23 +45,58 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData.light(),
-      darkTheme: ThemeData.dark(),
-      themeMode: ThemeMode.system,
-      home: Scaffold(
-          body: Center(
-            child: ElevatedButton(
-              onPressed: (){
-
-              },
-              child: const Text("Get Data"),
-            ),
+      theme: ThemeData(
+        scaffoldBackgroundColor: Colors.white,
+        colorScheme: const ColorScheme.light(),
+        textTheme: TextTheme(
+          subtitle1: GoogleFonts.pacifico(
+            fontStyle: FontStyle.normal,
+              fontSize: 25,
+              color: Colors.black,
+              fontWeight: FontWeight.w800,
+            letterSpacing: 1,
           ),
-          floatingActionButton: FloatingActionButton(
-            onPressed: () {
-            },
-          )
+          subtitle2: GoogleFonts.lato(
+              fontSize: 20,
+              color: Colors.grey.shade700,
+              fontWeight: FontWeight.w600
+          ),
+          headline1: GoogleFonts.lato(
+              fontSize: 18,
+              color: Colors.black,
+              fontWeight: FontWeight.w400
+          ),
+        ),
+        appBarTheme:  const AppBarTheme(
+          backgroundColor: Colors.blue,
+        ),
       ),
+      darkTheme: ThemeData(
+        scaffoldBackgroundColor: Colors.black,
+        colorScheme: const ColorScheme.dark(),
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Colors.black,
+        ),
+        textTheme: TextTheme(
+            subtitle1: GoogleFonts.lato(
+                fontSize: 30,
+                color: Colors.white70,
+                fontWeight: FontWeight.w600
+            ),
+            subtitle2: GoogleFonts.lato(
+                fontSize: 25,
+                color: Colors.white70,
+                fontWeight: FontWeight.w600
+            ),
+            headline1: GoogleFonts.lato(
+                fontSize: 18,
+                color: Colors.white70,
+                fontWeight: FontWeight.w600
+            )
+        ),
+      ),
+      themeMode: ThemeMode.light,
+      home: const CountriesListPage(),
     );
   }
 }
