@@ -1,17 +1,16 @@
 
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 
 
 class MyTheme with ChangeNotifier{
-  bool clicked = true;
 
   Icon mythemeMode() {
-     return Icon((clicked == true) ? Icons.sunny : Icons.nightlight);
+     return Icon((isDark == true) ? Icons.nightlight : Icons.sunny);
   }
 
-  static bool isDark = false;
+  bool isDark = true;
   ThemeMode currentTheme(){
-    mythemeMode();
     return isDark?ThemeMode.dark:ThemeMode.light;
   }
 

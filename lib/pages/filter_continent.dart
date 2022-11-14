@@ -11,42 +11,39 @@ class _FilterContinentState extends State<FilterContinent> {
   bool? value = false;
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return SizedBox(
+      width: MediaQuery.of(context).size.width,
       child: ExpansionTile(
         title: Text("Continent", style: Theme.of(context).textTheme.headline1,),
         children: [
-          Row(
-            children: [
-              const Text("Africa"),
-              Checkbox(
-                value: value,
-                tristate: false,
-                activeColor: Colors.black,
-                onChanged: (value1){
-                  print(value1);
-                  setState(() {
-                    value = value1;
-                  });
-                },
-              )
-            ],
+          ListTile(
+            leading: Text("Africa"),
+            trailing: Checkbox(
+              value: value,
+              tristate: false,
+              activeColor: Colors.black,
+              onChanged: (value1){
+                print(value1);
+                setState(() {
+                  value = value1;
+                });
+              },
+            ),
           ),
-          Row(
-            children: [
-              const Text("Africa"),
-              Checkbox(
-                value: value,
-                tristate: false,
-                activeColor: Colors.black,
-                onChanged: (value1){
-                  print(value1);
-                  setState(() {
-                    value = value1;
-                  });
-                },
-              )
-            ],
-          )
+          ListTile(
+            leading: Text("Africa"),
+            trailing: Checkbox(
+              value: value,
+              tristate: false,
+              activeColor: Colors.black,
+              onChanged: (value1){
+                print(value1);
+                setState(() {
+                  value = value1;
+                });
+              },
+            ),
+          ),
         ],
       ),
     );

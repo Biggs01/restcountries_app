@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:grouped_list/grouped_list.dart';
+import 'package:restcountries_app/pages/country_details.dart';
+
 import 'package:restcountries_app/pages/filter_continent.dart';
 import 'package:restcountries_app/utils/config.dart';
 import 'package:unicons/unicons.dart';
@@ -18,6 +20,15 @@ class _CountriesListPageState extends State<CountriesListPage> {
 
   @override
   Widget build(BuildContext context) {
+    final elements = [
+      {'group': 'A', 'name': 'Nigeria'},
+      {'group': 'B', 'name': 'John'},
+      {'group': 'A', 'name': 'John'},
+      {'group': 'B', 'name': 'John'},
+      {'group': 'A', 'name': 'John'},
+      {'group': 'B', 'name': 'John'},
+      {'group': 'B', 'name': 'John'},
+    ];
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -39,16 +50,14 @@ class _CountriesListPageState extends State<CountriesListPage> {
                           children: [
                             TextSpan(
                                 text: '.',
-                                style: TextStyle(
-                                    color: Colors.orange.shade900))
+                                style: TextStyle(color: Colors.orange.shade900))
                           ]),
                     ),
                     trailing: IconButton(
                       onPressed: () {
-                        currentTheme.clicked = !currentTheme.clicked;
                         currentTheme.switchTheme();
                       },
-                      icon: currentTheme.mythemeMode() ,
+                      icon: currentTheme.mythemeMode(),
                     ),
                   ),
                 ),
@@ -78,45 +87,105 @@ class _CountriesListPageState extends State<CountriesListPage> {
                       style: Theme.of(context).elevatedButtonTheme.style,
                       onPressed: () {
                         fetchdata.getInfo();
-                      },
-                      icon: Icon(UniconsLine.globe, color: Theme.of(context).textTheme.headline2!.color,),
-                      label: Text("EN", style: Theme.of(context).textTheme.headline2,),
-
-                    ),
-                    trailing: ElevatedButton.icon(
-                      onPressed: () {
                         showModalBottomSheet(
-                          shape: const RoundedRectangleBorder(
-                            borderRadius: BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20)),
-                          ),
+                            shape: const RoundedRectangleBorder(
+                              borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(20),
+                                  topRight: Radius.circular(20)),
+                            ),
                             context: context,
                             builder: (context) {
                               return SizedBox(
-                                height: MediaQuery.of(context).size.height/2,
+                                height: MediaQuery.of(context).size.height,
                                 child: Column(
                                   children: [
                                     ListTile(
-                                      leading: Text("Filter", style: Theme.of(context).textTheme.headline2,),
+                                      leading: Text(
+                                        "Filter",
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headline2,
+                                      ),
                                       trailing: Container(
                                         width: 50,
                                         height: 25,
                                         alignment: Alignment.center,
                                         child: ElevatedButton(
-                                            onPressed: (){
+                                            onPressed: () {
                                               Navigator.pop(context);
                                             },
-                                            child: Icon(Icons.cancel_outlined, size: 20, color: Theme.of(context).textTheme.headline2!.color)
-                                        ),
+                                            child: Icon(Icons.cancel_outlined,
+                                                size: 20,
+                                                color: Theme.of(context)
+                                                    .textTheme
+                                                    .headline2!
+                                                    .color)),
                                       ),
                                     ),
-                                    FilterContinent()
+                                    const FilterContinent()
                                   ],
                                 ),
                               );
                             });
                       },
-                      icon: Icon(UniconsLine.filter,color: Theme.of(context).textTheme.headline2!.color),
-                      label: Text("Filter", style: Theme.of(context).textTheme.headline2,),
+                      icon: Icon(
+                        UniconsLine.globe,
+                        color: Theme.of(context).textTheme.headline2!.color,
+                      ),
+                      label: Text(
+                        "EN",
+                        style: Theme.of(context).textTheme.headline2,
+                      ),
+                    ),
+                    trailing: ElevatedButton.icon(
+                      onPressed: () {
+                        showModalBottomSheet(
+                            shape: const RoundedRectangleBorder(
+                              borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(20),
+                                  topRight: Radius.circular(20)),
+                            ),
+                            context: context,
+                            builder: (context) {
+                              return SizedBox(
+                                height: MediaQuery.of(context).size.height,
+                                child: Column(
+                                  children: [
+                                    ListTile(
+                                      leading: Text(
+                                        "Filter",
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headline2,
+                                      ),
+                                      trailing: Container(
+                                        width: 50,
+                                        height: 25,
+                                        alignment: Alignment.center,
+                                        child: ElevatedButton(
+                                            onPressed: () {
+                                              Navigator.pop(context);
+                                            },
+                                            child: Icon(Icons.cancel_outlined,
+                                                size: 20,
+                                                color: Theme.of(context)
+                                                    .textTheme
+                                                    .headline2!
+                                                    .color)),
+                                      ),
+                                    ),
+                                    const FilterContinent()
+                                  ],
+                                ),
+                              );
+                            });
+                      },
+                      icon: Icon(UniconsLine.filter,
+                          color: Theme.of(context).textTheme.headline2!.color),
+                      label: Text(
+                        "Filter",
+                        style: Theme.of(context).textTheme.headline2,
+                      ),
                     ),
                   ),
                 )
@@ -125,52 +194,46 @@ class _CountriesListPageState extends State<CountriesListPage> {
             Expanded(
                 // width: MediaQuery.of(context).size.width,
                 // height: MediaQuery.of(context).size.height * 0.65,
-                child: Padding(
-                  padding: const EdgeInsets.fromLTRB(15.0, 0, 0, 15),
-                  child: SizedBox(
-                    width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height,
-                    child: ListView.builder(
-                      physics: BouncingScrollPhysics(),
-                      itemCount: 10,
-                      itemBuilder: (BuildContext context, int index) {
-                        return Center(
-                          child: SizedBox(
-                            width: MediaQuery.of(context).size.width,
-                            height: MediaQuery.of(context).size.height*0.45,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Container(
-                                    alignment: Alignment.centerLeft,
-                                    child: Text("index $index")),
-                                Expanded(
-                                  child: ListView.builder(
-                                    physics: NeverScrollableScrollPhysics(),
-                                    itemCount: 6,
-                                    itemBuilder: (BuildContext context, int index) {
-                                      return ListTile(
-                                          leading:
-                                              const Icon(UniconsLine.android),
-                                          title: Text(
-                                            "List item $index",
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .headline1,
-                                          ));
-                                    },
-                                  ),
-                                )
-                              ],
+                child: GroupedListView<dynamic, String>(
+              physics: BouncingScrollPhysics(),
+              elements: elements,
+              groupBy: (element) => element['group'],
+              groupSeparatorBuilder: (value) => Container(
+                width: double.infinity,
+                padding: EdgeInsets.all(16),
+                color: Theme.of(context).scaffoldBackgroundColor,
+                child: Text(value),
+              ),
+              itemBuilder: (context, element) => Card(
+                elevation: 0,
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => CountryDetails()));
+                  },
+                  child: ListTile(
+                    tileColor: Theme.of(context).scaffoldBackgroundColor,
+                    contentPadding: EdgeInsets.all(10),
+                    leading: Container(
+                      width: 40,
+                      height: 40,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          image: DecorationImage(
+                            image: NetworkImage(
+                              "https://flagcdn.com/w320/ng.png",
                             ),
-                          ),
-                        );
-                      },
+                            fit: BoxFit.fill,
+                          )),
+                      // child: Image.network("https://flagcdn.com/w320/ng.png",fit: BoxFit.fill,)
                     ),
+                    title: Text(element['name'],style: Theme.of(context).textTheme.headline2,),
                   ),
-                ))
+                ),
+              ),
+            ))
           ],
         ),
       ),

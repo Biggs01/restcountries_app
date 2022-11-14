@@ -148,7 +148,7 @@ class _MyHomePageState extends State<MyHomePage> {
          )
        ),
       ),
-      themeMode:currentTheme.currentTheme() ,
+      themeMode:currentTheme.currentTheme(),
       home: const CountriesListPage(),
     );
   }
